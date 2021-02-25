@@ -24,15 +24,16 @@ public class Ventana extends JFrame {
 
     private JLabel imagen;
     private JLabel jLabel1;
-    private JButton generar;
+    private JButton desviacion, varianza, media;
     private JRadioButton rb1;
     private JRadioButton rb2;
     private JComboBox lista;
+    //private JText numeros;
     Seleccion s = new Seleccion();
 
     public Ventana() {
         setSize(700, 400);
-        setTitle("Veterinaria asignación de citas");
+        setTitle("Calculadora Estadistica");
         setLocationRelativeTo(null);
 
         iniciarComponentes();
@@ -43,7 +44,9 @@ public class Ventana extends JFrame {
     private void iniciarComponentes() {
 
         jLabel1 = new javax.swing.JLabel();
-        generar = new javax.swing.JButton();
+        desviacion = new javax.swing.JButton();
+        varianza = new javax.swing.JButton();
+        media = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
         rb1 = new javax.swing.JRadioButton();
         rb2 = new javax.swing.JRadioButton();
@@ -53,22 +56,42 @@ public class Ventana extends JFrame {
         setMinimumSize(new java.awt.Dimension(500, 500));
         getContentPane().setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("OCR A Extended", 1, 25)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Calculo funciones estadisticas");
+        jLabel1.setText("Calculadora Estadistica");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(140, 50, 420, 60);
 
-        generar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        generar.setText("Generar Cita");
-        generar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        generar.setBackground(Color.LIGHT_GRAY);
-        generar.setContentAreaFilled(true);
-        generar.setFocusPainted(true);
-        generar.setEnabled(true);
-        getContentPane().add(generar);
-        generar.setBounds(300, 280, 100, 40);
-
+        desviacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        desviacion.setText("Desviacion");
+        desviacion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        desviacion.setBackground(Color.LIGHT_GRAY);
+        desviacion.setContentAreaFilled(true);
+        desviacion.setFocusPainted(true);
+        desviacion.setEnabled(true);
+        getContentPane().add(desviacion);
+        desviacion.setBounds(70, 350, 150, 50);
+        
+        varianza.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        varianza.setText("Varianza");
+        varianza.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        varianza.setBackground(Color.LIGHT_GRAY);
+        varianza.setContentAreaFilled(true);
+        varianza.setFocusPainted(true);
+        varianza.setEnabled(true);
+        getContentPane().add(varianza);
+        varianza.setBounds(270, 350, 150, 50);
+       
+        media.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        media.setText("Media");
+        media.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        media.setBackground(Color.LIGHT_GRAY);
+        media.setContentAreaFilled(true);
+        media.setFocusPainted(true);
+        media.setEnabled(true);
+        getContentPane().add(media);
+        media.setBounds(470, 350, 150, 50);
+       
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo perritos.jpg"))); // NOI18N
         getContentPane().add(imagen);
         imagen.setBounds(0, 0, 700, 410);
@@ -132,7 +155,7 @@ public class Ventana extends JFrame {
 
             }
         };
-        generar.addActionListener(al4);
+        desviacion.addActionListener(al4);
     }
 
 }
