@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -25,10 +26,7 @@ public class Ventana extends JFrame {
     private JLabel imagen;
     private JLabel jLabel1;
     private JButton desviacion, varianza, media;
-    private JRadioButton rb1;
-    private JRadioButton rb2;
-    private JComboBox lista;
-    //private JText numeros;
+    private JTextField datos; 
     Seleccion s = new Seleccion();
 
     public Ventana() {
@@ -48,8 +46,7 @@ public class Ventana extends JFrame {
         varianza = new javax.swing.JButton();
         media = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
-        rb1 = new javax.swing.JRadioButton();
-        rb2 = new javax.swing.JRadioButton();
+        datos = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(500, 500));
@@ -92,70 +89,12 @@ public class Ventana extends JFrame {
         getContentPane().add(media);
         media.setBounds(470, 350, 150, 50);
        
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo perritos.jpg"))); // NOI18N
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondoestadistica.jpg"))); // NOI18N
         getContentPane().add(imagen);
         imagen.setBounds(0, 0, 700, 410);
-
-        rb1.setFont(new java.awt.Font("Tahoma", 1, 12));
-        rb1.setText("AM");
-        rb1.setBackground(Color.LIGHT_GRAY);
-        rb1.setContentAreaFilled(true);
-        rb1.setFocusPainted(true);
-        rb1.setEnabled(true);
-        getContentPane().add(rb1);
-        rb1.setBounds(300, 100, 100, 40);
-
-        rb2.setFont(new java.awt.Font("Tahoma", 1, 12));
-        rb2.setText("PM");
-        rb2.setBackground(Color.LIGHT_GRAY);
-        rb2.setContentAreaFilled(true);
-        rb2.setFocusPainted(true);
-        rb2.setEnabled(true);
-        getContentPane().add(rb2);
-        rb2.setBounds(300, 160, 100, 40);
-
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(rb1);
-        bg.add(rb2);
-
-        String[] opciones = {"...", "Medicina General", "Cirugia General", "Ortopedia y traumatología", "Etología", "Esterilizacion", "RX", "Toma de muestras"};
-        lista = new javax.swing.JComboBox(opciones);
-        lista.setBounds(250, 220, 200, 40);
-        lista.setEnabled(true);
-        lista.setSelectedIndex(0);
-        getContentPane().add(lista);
-
-        //eventos
-        ActionListener al1 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        };
-        rb1.addActionListener(al1);
-        ActionListener al2 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        };
-        rb2.addActionListener(al2);
-
-        ActionListener al3 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == lista) {
-                    JComboBox cb = (JComboBox) e.getSource();
-                    int opc = cb.getSelectedIndex();
-                }
-            }
-        };
-        lista.addActionListener(al3);
-        ActionListener al4 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        };
-        desviacion.addActionListener(al4);
+        
+        datos.setText("Ingrese los datos");
+        datos.setBounds(100, 80, 80 , 20);
     }
 
 }
