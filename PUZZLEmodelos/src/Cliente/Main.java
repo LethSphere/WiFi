@@ -1,7 +1,9 @@
 
 package Cliente;
 
+import Vista.Inicio;
 import Vista.Juego;
+import puzzles.Dos;
 
 /**
  *
@@ -14,7 +16,10 @@ public class Main {
      */
     public static void main(String[] args) {
         Juego ventana = new Juego();
-        Control programa = new Control(ventana);
+        Inicio inicio = new Inicio();
+        Control programa = new Control(inicio);
+        Dos dos =new Dos();
+        dos.setMatrix("Villada");
     }
     
 }

@@ -5,7 +5,16 @@
  */
 package Vista;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -13,15 +22,17 @@ import javax.swing.JButton;
  */
 public class Juego extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Juego
-     */
+    JButton[][] Tablero;
+    private JButton imagen;
+
     public Juego() {
         initComponents();
         this.setTitle("PUZZLE");
+        setMatrix();
+        setFicha();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setVisible(true);
+        this.setVisible(false);
     }
 
     public JButton getBotonAnterior() {
@@ -31,14 +42,83 @@ public class Juego extends javax.swing.JFrame {
     public JButton getBotonColocar() {
         return jbColocar;
     }
+
     public JButton getBotonMenu() {
         return jbMenu;
     }
+
     public JButton getBotonSiguiente() {
         return jbSiguiente;
     }
+
     public JButton getBotonVerificar() {
         return jbVerificar;
+    }
+
+    public void setMatrix() {
+
+        Tablero = new JButton[2][2];
+        String img = "";
+        int cont = 1;
+        int x = 20;
+        int y = 20;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                img = "src/Img/fondo.png";
+                Tablero[i][j] = new JButton();
+                Tablero[i][j].setBounds(x, y, 280, 280);
+                Tablero[i][j].setBackground(Color.PINK);
+                Tablero[i][j].setName(String.valueOf(cont));
+                Tablero[i][j].setIcon(new ImageIcon(img));
+
+                controladorBotones bt = new controladorBotones();
+                Tablero[i][j].addActionListener(bt);
+                Tablero[i][j].addMouseListener(bt);
+                panelFichas.add(Tablero[i][j]);
+                x += 280;
+            }
+            y += 280;
+            x = 20;
+        }
+    }
+    public void setFicha(){
+        String img = "src/Img/fondo.png";
+        imagen = new javax.swing.JButton();
+        imagen.setBounds(10, 10, 180, 180);
+        imagen.setIcon(new ImageIcon(img));
+        Ficha.add(imagen);
+        
+    }
+
+    private class controladorBotones implements ActionListener, MouseListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -147,11 +227,11 @@ public class Juego extends javax.swing.JFrame {
                                 .addGap(108, 108, 108)
                                 .addComponent(jbMenu))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(Ficha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(49, 49, 49)
-                                .addComponent(jBAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jBAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(Ficha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(72, 72, 72)))
                 .addComponent(panelFichas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))

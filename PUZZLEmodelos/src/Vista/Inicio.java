@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 /**
  *
  * @author User
@@ -16,8 +19,23 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        this.setTitle("PUZZLE");
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setVisible(true);
     }
-
+    public JButton getBotonInicio() {
+        return jbInicio;
+    }
+    
+    public JComboBox<String> getComboDificultad() {
+        return jcbDificultad;
+    }
+    
+    public JComboBox<String> getComboCategoria() {
+        return jcbCategoria;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,9 +45,11 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        jcbDificultad = new javax.swing.JComboBox<>();
+        jcbCategoria = new javax.swing.JComboBox<>();
+        jbInicio = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -37,22 +57,45 @@ public class Inicio extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Muy Fácil", "Fácil", "Normal", "Difícil", "Extremo" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 250, -1, -1));
+        jcbDificultad.setFont(new java.awt.Font("8-bit pusab", 0, 14)); // NOI18N
+        jcbDificultad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Muy Facil", "Facil", "Normal", "Dificil", "Extremo" }));
+        jcbDificultad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbDificultadActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jcbDificultad, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 240, 190, 40));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Anselmo", "Villada" }));
-        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 380, -1, -1));
+        jcbCategoria.setFont(new java.awt.Font("8-bit pusab", 0, 14)); // NOI18N
+        jcbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flores", "Anselmo", "Villada" }));
+        getContentPane().add(jcbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, 190, 40));
 
-        jButton2.setText("Inicio");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 430, -1, -1));
+        jbInicio.setFont(new java.awt.Font("8-bit pusab", 0, 36)); // NOI18N
+        jbInicio.setForeground(new java.awt.Color(255, 255, 255));
+        jbInicio.setText("Inicio");
+        jbInicio.setContentAreaFilled(false);
+        getContentPane().add(jbInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 480, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("8-bit pusab", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("DIFICULTAD");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 190, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("8-bit pusab", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("CATEGORIA");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 310, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/fondo.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
         jLabel2.setOpaque(true);
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jcbDificultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDificultadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbDificultadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,9 +133,11 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jbInicio;
+    private javax.swing.JComboBox<String> jcbCategoria;
+    private javax.swing.JComboBox<String> jcbDificultad;
     // End of variables declaration//GEN-END:variables
 }
