@@ -18,8 +18,6 @@ public class Main {
         Juego ventana = new Juego();
         Inicio inicio = new Inicio();
         Control programa = new Control(inicio);
-        Dos dos =new Dos();
-        dos.setMatrix("Villada");
     }
     
 }

@@ -45,8 +45,8 @@ public class Dos extends Comun {
         }
         String[] fichas = {};
         int cont=1;
-        for (int i = 0; i < (Filas*Filas); i++) {
-            fichas[i] = str+cont;
+        for (int i = 0; i < 4; i++) {
+            fichas[i] = "A"+cont;
             cont ++;
         }
         return fichas;

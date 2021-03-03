@@ -5,31 +5,55 @@
  */
 package Vista;
 
+import Cliente.Seleccion;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author User
  */
 public class Juego extends javax.swing.JFrame {
+    
+    Seleccion s = new Seleccion();
 
     JButton[][] Tablero;
     private JButton imagen;
+    private int fila=2,Tam=280;
+
+    public String getCat() {
+        return Cat;
+    }
+
+    public void setCat(String Cat) {
+        this.Cat = Cat;
+    }
+    private String Cat="B";
+
+    public int getTam() {
+        return Tam;
+    }
+
+    public void setTam(int Tam) {
+        this.Tam = Tam;
+    }
+
+    public int getFilas() {
+        return fila;
+    }
+
+    public void setFilas(int Filas) {
+        this.fila = Filas;
+    }
 
     public Juego() {
         initComponents();
         this.setTitle("PUZZLE");
-        setMatrix();
-        setFicha();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(false);
@@ -57,16 +81,16 @@ public class Juego extends javax.swing.JFrame {
 
     public void setMatrix() {
 
-        Tablero = new JButton[2][2];
+        Tablero = new JButton[fila][fila];
         String img = "";
         int cont = 1;
         int x = 20;
         int y = 20;
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                img = "src/Img/fondo.png";
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < fila; j++) {
+                img = "src/Img/"+Cat+String.valueOf(cont)+".png";
                 Tablero[i][j] = new JButton();
-                Tablero[i][j].setBounds(x, y, 280, 280);
+                Tablero[i][j].setBounds(x, y, getTam(), getTam());
                 Tablero[i][j].setBackground(Color.PINK);
                 Tablero[i][j].setName(String.valueOf(cont));
                 Tablero[i][j].setIcon(new ImageIcon(img));
@@ -75,14 +99,32 @@ public class Juego extends javax.swing.JFrame {
                 Tablero[i][j].addActionListener(bt);
                 Tablero[i][j].addMouseListener(bt);
                 panelFichas.add(Tablero[i][j]);
-                x += 280;
+                
+                cont++;
+                x += getTam();
             }
-            y += 280;
+            y += getTam();
             x = 20;
         }
     }
-    public void setFicha(){
-        String img = "src/Img/fondo.png";
+    public boolean verificar(){
+        int cont=1;
+        boolean var =true;
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < fila; j++) {
+                if(String.valueOf(cont).equals(Tablero[i][j].getName())){
+                    
+                }else {
+                    var=false;
+                }
+                cont++;
+            }
+
+        }
+        return var;
+    }
+    public void setFicha(String i){
+        String img = "src/Img/"+i+".png";
         imagen = new javax.swing.JButton();
         imagen.setBounds(10, 10, 180, 180);
         imagen.setIcon(new ImageIcon(img));
@@ -93,7 +135,16 @@ public class Juego extends javax.swing.JFrame {
     private class controladorBotones implements ActionListener, MouseListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {    
+            for (int i = 0; i < fila; i++) {
+                for (int j = 0; j < fila; j++) {
+                    if (e.getSource().equals(Tablero[i][j])) {
+                        String img = s.getCad();
+                        Tablero[i][j].setIcon(new ImageIcon("src/Img/"+img+".png"));
+                        Tablero[i][j].setName(String.valueOf(s.getCod()));
+                    }    
+                }
+            }
         }
 
         @Override

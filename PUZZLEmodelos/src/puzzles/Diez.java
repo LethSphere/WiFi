@@ -45,7 +45,7 @@ public class Diez extends Comun{
         String[] fichas = {};
         int cont=1;
         for (int i = 0; i < (Filas*Filas); i++) {
-            fichas[i] = str+cont;
+            fichas[i] = str+String.valueOf(cont);
             cont ++;
         }
         return fichas;
