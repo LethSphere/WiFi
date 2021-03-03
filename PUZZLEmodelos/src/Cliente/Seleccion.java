@@ -13,8 +13,33 @@ public class Seleccion {
     private int cat;
     private int dif;
     private int num;
-    private String cad;
+    private String cad,fichas,F;
     private int cod;
+    private int ficha;
+
+    public String getF() {
+        return F;
+    }
+
+    public void setF(String F) {
+        this.F = F;
+    }
+
+    public String getFichas() {
+        return fichas;
+    }
+
+    public void setFichas(String fichas) {
+        this.fichas = fichas;
+    }
+
+    public int getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(int ficha) {
+        this.ficha = ficha;
+    }
 
     public int getCod() {
         return cod;

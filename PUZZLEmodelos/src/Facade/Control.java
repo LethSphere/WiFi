@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Cliente;
+package Facade;
 
+import Cliente.Seleccion;
 import Vista.Inicio;
 import Vista.Juego;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import puzzles.Cuatro;
@@ -42,14 +45,12 @@ public class Control implements ActionListener {
     }
 
     public void inicializarAcciones() {
-        ventana.getBotonAnterior().addActionListener(this);
-        ventana.getBotonColocar().addActionListener(this);
         ventana.getBotonMenu().addActionListener(this);
-        ventana.getBotonSiguiente().addActionListener(this);
         ventana.getBotonVerificar().addActionListener(this);
         inicio.getBotonInicio().addActionListener(this);
         inicio.getComboCategoria().addActionListener(this);
         inicio.getComboDificultad().addActionListener(this);
+        ventana.getBotonFicha().addActionListener(this);
     }
 
     public int Filas() {
@@ -67,34 +68,52 @@ public class Control implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object evento = e.getSource();
-        if (evento.equals(ventana.getBotonAnterior())) { //Ir al Home
-            System.out.println("ANTERIOR");
-        }
-        if (evento.equals(ventana.getBotonMenu())) { //Desplegar/Ocultar menu lateral
+        if (evento.equals(ventana.getBotonMenu())) { 
             System.out.println("MENU");
             ventana.setVisible(false);
             inicio.setVisible(true);
         }
-        if (evento.equals(ventana.getBotonColocar())) { //Ir a ubicación
-            System.out.println("COLOCAR");
-            s.setCad("B1");
-            s.setCod(1);
-        }
-        if (evento.equals(ventana.getBotonSiguiente())) { //Ir a contacto
-            System.out.println("SIGUIENTE");
-            String cad=c+String.valueOf((s.getNum()+1));
-            ventana.setFicha(cad);
-
-            inicio.setVisible(false);
-            ventana.setVisible(true);
-        }
-        if (evento.equals(ventana.getBotonVerificar())) { //Ir a hacer una reserva
+        if (evento.equals(ventana.getBotonVerificar())) {
             System.out.println("VERIFICAR");
             if (ventana.verificar()==true){
                 JOptionPane.showMessageDialog(null, "Felicidades");
+            } else{
+                JOptionPane.showMessageDialog(null, "Intenta de nuevo");
             }
         }
-        if (evento.equals(inicio.getBotonInicio())) { //Ir a hacer una reserva
+        if (evento.equals(ventana.getBotonFicha())) { 
+            System.out.println("FICHA");
+            int dif = s.getDif();
+            int f=4;
+            switch (dif) {
+                case 1:
+                    f = 4;
+                    break;
+                case 2:
+                    f = 9;
+                    break;
+                case 3:
+                    f = 16;
+                    break;
+                case 4:
+                    f = 36;
+                    break;
+                case 5:
+                    f = 100;
+                    break;
+                default:
+                    break;
+            }
+            if(s.getFicha()>=f){
+                s.setFicha(0);
+            }
+            int cont=s.getFicha()+1;
+            String cad=s.getFichas()+String.valueOf(cont);
+            s.setFicha(cont);
+            ventana.setFicha(cad);
+            
+        }
+        if (evento.equals(inicio.getBotonInicio())) {
             System.out.println("INICIO");
             int dif = s.getDif();
             int cat = s.getCat();
@@ -163,14 +182,18 @@ public class Control implements ActionListener {
             ventana.setTam(t);
             ventana.setCat(c);
             ventana.setMatrix();
+            s.setFicha(1);
+            s.setFichas(c);
             
             String cad=c+"1";
+            s.setCad(cad);
+            s.setF(c+"1");
             ventana.setFicha(cad);
 
             inicio.setVisible(false);
             ventana.setVisible(true);
         }
-        if (evento.equals(inicio.getComboCategoria())) { //Ir a hacer una reserva
+        if (evento.equals(inicio.getComboCategoria())) { 
             System.out.println("CATEGORIA");
             JComboBox cb = (JComboBox) e.getSource();
             int opc = cb.getSelectedIndex();
@@ -191,7 +214,7 @@ public class Control implements ActionListener {
                     break;
             }
         }
-        if (evento.equals(inicio.getComboDificultad())) { //Ir a hacer una reserva
+        if (evento.equals(inicio.getComboDificultad())) { 
             System.out.println("DIFICULTAD");
             JComboBox cb = (JComboBox) e.getSource();
             int opc = cb.getSelectedIndex();

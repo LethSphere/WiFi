@@ -9,22 +9,26 @@ import Cliente.Seleccion;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author User
  */
 public class Juego extends javax.swing.JFrame {
-    
+
     Seleccion s = new Seleccion();
+    Inicio inicio = new Inicio();
 
     JButton[][] Tablero;
     private JButton imagen;
-    private int fila=2,Tam=280;
+    private int fila = 2, Tam = 280;
 
     public String getCat() {
         return Cat;
@@ -33,7 +37,7 @@ public class Juego extends javax.swing.JFrame {
     public void setCat(String Cat) {
         this.Cat = Cat;
     }
-    private String Cat="B";
+    private String Cat = "B";
 
     public int getTam() {
         return Tam;
@@ -59,24 +63,16 @@ public class Juego extends javax.swing.JFrame {
         this.setVisible(false);
     }
 
-    public JButton getBotonAnterior() {
-        return jBAnterior;
-    }
-
-    public JButton getBotonColocar() {
-        return jbColocar;
-    }
-
     public JButton getBotonMenu() {
         return jbMenu;
     }
 
-    public JButton getBotonSiguiente() {
-        return jbSiguiente;
-    }
-
     public JButton getBotonVerificar() {
         return jbVerificar;
+    }
+
+    public JButton getBotonFicha() {
+        return bFicha;
     }
 
     public void setMatrix() {
@@ -88,18 +84,18 @@ public class Juego extends javax.swing.JFrame {
         int y = 20;
         for (int i = 0; i < fila; i++) {
             for (int j = 0; j < fila; j++) {
-                img = "src/Img/"+Cat+String.valueOf(cont)+".png";
+                img = "src/Img/" + Cat + String.valueOf(cont) + ".png";
                 Tablero[i][j] = new JButton();
                 Tablero[i][j].setBounds(x, y, getTam(), getTam());
-                Tablero[i][j].setBackground(Color.PINK);
+                Tablero[i][j].setBackground(Color.DARK_GRAY);
                 Tablero[i][j].setName(String.valueOf(cont));
-                Tablero[i][j].setIcon(new ImageIcon(img));
+                //Tablero[i][j].setIcon(new ImageIcon(img));
 
                 controladorBotones bt = new controladorBotones();
                 Tablero[i][j].addActionListener(bt);
                 Tablero[i][j].addMouseListener(bt);
                 panelFichas.add(Tablero[i][j]);
-                
+
                 cont++;
                 x += getTam();
             }
@@ -107,15 +103,16 @@ public class Juego extends javax.swing.JFrame {
             x = 20;
         }
     }
-    public boolean verificar(){
-        int cont=1;
-        boolean var =true;
+
+    public boolean verificar() {
+        int cont = 1;
+        boolean var = true;
         for (int i = 0; i < fila; i++) {
             for (int j = 0; j < fila; j++) {
-                if(String.valueOf(cont).equals(Tablero[i][j].getName())){
-                    
-                }else {
-                    var=false;
+                if (String.valueOf(cont).equals(Tablero[i][j].getName())) {
+
+                } else {
+                    var = false;
                 }
                 cont++;
             }
@@ -123,26 +120,56 @@ public class Juego extends javax.swing.JFrame {
         }
         return var;
     }
-    public void setFicha(String i){
-        String img = "src/Img/"+i+".png";
-        imagen = new javax.swing.JButton();
-        imagen.setBounds(10, 10, 180, 180);
-        imagen.setIcon(new ImageIcon(img));
-        Ficha.add(imagen);
-        
+
+    public void setFicha(String i) {
+        String img = "src/Img/" + i + ".png";
+        bFicha.setBounds(10, 10, 180, 180);
+        bFicha.setIcon(new ImageIcon(img));
+
     }
 
-    private class controladorBotones implements ActionListener, MouseListener {
+    public void inicializarAcciones() {
+        controladorBotones bt = new controladorBotones();
+        inicio.getComboCategoria().addActionListener(bt);
+    }
+
+    private class controladorBotones implements ActionListener, MouseListener, KeyListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) {    
+        public void actionPerformed(ActionEvent e) {
             for (int i = 0; i < fila; i++) {
                 for (int j = 0; j < fila; j++) {
+
                     if (e.getSource().equals(Tablero[i][j])) {
-                        String img = s.getCad();
-                        Tablero[i][j].setIcon(new ImageIcon("src/Img/"+img+".png"));
+                        String k = s.getFichas() + String.valueOf(s.getFicha());
+                        String img = "src/Img/" + k + ".png";
+                        Tablero[i][j].setIcon(new ImageIcon(img));
                         Tablero[i][j].setName(String.valueOf(s.getCod()));
-                    }    
+                    }
+                    if (e.getSource().equals(Tablero[0][0])) {
+                        String k = "A1";
+                        String img = "src/Img/" + k + ".png";
+                        Tablero[0][0].setIcon(new ImageIcon(img));
+                        Tablero[0][0].setName("1");
+                    }
+                    if (e.getSource().equals(Tablero[0][1])) {
+                        String k = "A2";
+                        String img = "src/Img/" + k + ".png";
+                        Tablero[0][1].setIcon(new ImageIcon(img));
+                        Tablero[0][1].setName("2");
+                    }
+                    if (e.getSource().equals(Tablero[1][0])) {
+                        String k = "A3";
+                        String img = "src/Img/" + k + ".png";
+                        Tablero[1][0].setIcon(new ImageIcon(img));
+                        Tablero[1][0].setName("3");
+                    }
+                    if (e.getSource().equals(Tablero[1][1])) {
+                        String k = "A4";
+                        String img = "src/Img/" + k + ".png";
+                        Tablero[1][1].setIcon(new ImageIcon(img));
+                        Tablero[1][1].setName("4");
+                    }
                 }
             }
         }
@@ -154,7 +181,78 @@ public class Juego extends javax.swing.JFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
-
+            if (SwingUtilities.isRightMouseButton(e)) {
+                for (int i = 0; i < fila; i++) {
+                    for (int j = 0; j < fila; j++) {
+                        if (e.getSource().equals(Tablero[i][j])) {
+                            String k = "A1";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[i][j].setIcon(new ImageIcon(img));
+                            Tablero[i][j].setName("1");
+                        }
+                    }
+                }
+            }
+            if (SwingUtilities.isMiddleMouseButton(e)) {
+                for (int i = 0; i < fila; i++) {
+                    for (int j = 0; j < fila; j++) {
+                        if (e.getSource().equals(Tablero[0][0])) {
+                            String k = "D1";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[0][0].setIcon(new ImageIcon(img));
+                            Tablero[0][0].setName("1");
+                        }
+                        if (e.getSource().equals(Tablero[0][1])) {
+                            String k = "D2";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[0][1].setIcon(new ImageIcon(img));
+                            Tablero[0][1].setName("2");
+                        }
+                        if (e.getSource().equals(Tablero[0][2])) {
+                            String k = "D3";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[0][2].setIcon(new ImageIcon(img));
+                            Tablero[0][2].setName("3");
+                        }
+                        if (e.getSource().equals(Tablero[1][0])) {
+                            String k = "D4";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[1][0].setIcon(new ImageIcon(img));
+                            Tablero[1][0].setName("4");
+                        }
+                        if (e.getSource().equals(Tablero[1][1])) {
+                            String k = "D5";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[1][1].setIcon(new ImageIcon(img));
+                            Tablero[1][1].setName("5");
+                        }
+                        if (e.getSource().equals(Tablero[1][2])) {
+                            String k = "D6";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[1][2].setIcon(new ImageIcon(img));
+                            Tablero[1][2].setName("6");
+                        }
+                        if (e.getSource().equals(Tablero[2][0])) {
+                            String k = "D7";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[2][0].setIcon(new ImageIcon(img));
+                            Tablero[2][0].setName("7");
+                        }
+                        if (e.getSource().equals(Tablero[2][1])) {
+                            String k = "D8";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[2][1].setIcon(new ImageIcon(img));
+                            Tablero[2][1].setName("8");
+                        }
+                        if (e.getSource().equals(Tablero[2][2])) {
+                            String k = "D9";
+                            String img = "src/Img/" + k + ".png";
+                            Tablero[2][2].setIcon(new ImageIcon(img));
+                            Tablero[2][2].setName("9");
+                        }
+                    }
+                }
+            }
         }
 
         @Override
@@ -170,6 +268,21 @@ public class Juego extends javax.swing.JFrame {
         public void mouseExited(MouseEvent e) {
         }
 
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -178,9 +291,7 @@ public class Juego extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Ficha = new javax.swing.JPanel();
-        jBAnterior = new javax.swing.JButton();
-        jbSiguiente = new javax.swing.JButton();
-        jbColocar = new javax.swing.JButton();
+        bFicha = new javax.swing.JButton();
         jbVerificar = new javax.swing.JButton();
         jbMenu = new javax.swing.JButton();
         panelFichas = new javax.swing.JPanel();
@@ -195,35 +306,28 @@ public class Juego extends javax.swing.JFrame {
         Ficha.setBackground(new java.awt.Color(32, 18, 71));
         Ficha.setPreferredSize(new java.awt.Dimension(200, 200));
 
+        bFicha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bFichaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout FichaLayout = new javax.swing.GroupLayout(Ficha);
         Ficha.setLayout(FichaLayout);
         FichaLayout.setHorizontalGroup(
             FichaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGroup(FichaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bFicha, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         FichaLayout.setVerticalGroup(
             FichaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGroup(FichaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bFicha, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
-
-        jBAnterior.setFont(new java.awt.Font("8-bit pusab", 0, 7)); // NOI18N
-        jBAnterior.setText("ANTERIOR");
-        jBAnterior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAnteriorActionPerformed(evt);
-            }
-        });
-
-        jbSiguiente.setFont(new java.awt.Font("8-bit pusab", 0, 7)); // NOI18N
-        jbSiguiente.setText("SIGUIENTE");
-
-        jbColocar.setFont(new java.awt.Font("8-bit pusab", 0, 14)); // NOI18N
-        jbColocar.setText("COLOCAR");
-        jbColocar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbColocarActionPerformed(evt);
-            }
-        });
 
         jbVerificar.setFont(new java.awt.Font("8-bit pusab", 0, 14)); // NOI18N
         jbVerificar.setText("VERIFICAR");
@@ -263,23 +367,13 @@ public class Juego extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jbVerificar, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jbColocar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(88, 88, 88))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbSiguiente)
-                                .addGap(60, 60, 60))))
+                        .addComponent(jbVerificar)
+                        .addGap(88, 88, 88))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(108, 108, 108)
                                 .addComponent(jbMenu))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(jBAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(72, 72, 72)
                                 .addComponent(Ficha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -296,13 +390,7 @@ public class Juego extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(Ficha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbSiguiente)
-                            .addComponent(jBAnterior))
-                        .addGap(26, 26, 26)
-                        .addComponent(jbColocar)
-                        .addGap(27, 27, 27)
+                        .addGap(129, 129, 129)
                         .addComponent(jbVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
                         .addComponent(jbMenu)))
@@ -325,14 +413,6 @@ public class Juego extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAnteriorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBAnteriorActionPerformed
-
-    private void jbColocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbColocarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbColocarActionPerformed
-
     private void jbVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbVerificarActionPerformed
@@ -340,6 +420,10 @@ public class Juego extends javax.swing.JFrame {
     private void jbMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbMenuActionPerformed
+
+    private void bFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFichaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bFichaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,11 +465,9 @@ public class Juego extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Ficha;
-    private javax.swing.JButton jBAnterior;
+    private javax.swing.JButton bFicha;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton jbColocar;
     private javax.swing.JButton jbMenu;
-    private javax.swing.JButton jbSiguiente;
     private javax.swing.JButton jbVerificar;
     private javax.swing.JPanel panelFichas;
     // End of variables declaration//GEN-END:variables

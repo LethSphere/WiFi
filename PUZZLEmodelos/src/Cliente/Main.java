@@ -1,6 +1,7 @@
 
 package Cliente;
 
+import Facade.Control;
 import Vista.Inicio;
 import Vista.Juego;
 import puzzles.Dos;
